@@ -56,6 +56,14 @@ fn print_help() {
     }
 }
 
+fn input() -> String {
+    let mut buf = String::new();
+    io::stdin().read_line(&mut buf).expect("Failed to read stdin");
+
+    buf = buf.remove(buf.len() - 1).to_string(); // Remove last character (new line)
+
+    return buf;
+} 
 
 fn get_options() -> Vec<Option<'static>> {
     return vec![
@@ -94,9 +102,7 @@ fn encrypt_text_option(args: Vec<String>) {
     
     println!("Enter password: ");
 
-    let mut password = String::new();
-    io::stdin().read_line(&mut password).expect("Failed to read stdin");
-    password = password.remove(password.len() - 1).to_string();
+    let password = input();
 
     unsafe {
         println!("{}", benc::encrypt_string(text, password));
@@ -108,9 +114,7 @@ fn decrypt_text_option(args: Vec<String>) {
     
     println!("Enter password: ");
 
-    let mut password = String::new();
-    io::stdin().read_line(&mut password).expect("Failed to read stdin");
-    password = password.remove(password.len() - 1).to_string();
+    let password = input();
 
     unsafe {
         println!("{}", benc::decrypt_string(text, password));
