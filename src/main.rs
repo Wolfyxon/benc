@@ -1,6 +1,7 @@
 mod benc;
 
 use std::env;
+use std::io;
 
 struct Option<'a> {
     alias: &'a str,
@@ -24,14 +25,18 @@ fn main() {
     opt_args.remove(0);
     opt_args.remove(0);
     
+    let opt_args_len = opt_args.len();
 
     for option in get_options() {
         if(option.alias == alias) {
-            if opt_args.len() < option.minimum_args {
+            if opt_args_len < option.minimum_args {
                 println!("This option requires at least {} arguments.", option.minimum_args);
                 println!("{}", option.usage);
                 return;
             }
+
+            (option.callback)(opt_args.clone());
+            return;
         }
     }
 
