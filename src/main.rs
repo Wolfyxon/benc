@@ -73,6 +73,14 @@ fn get_options() -> Vec<Option<'static>> {
             minimum_args: 1,
             usage: "<text...>",
             callback: encrypt_text_option
+        },
+
+        Option {
+            alias: "decrypt_text",
+            description: "Decrypts encrypted text. You'll be prompted for the password",
+            minimum_args: 1,
+            usage: "<encrypted text...>",
+            callback: decrypt_text_option
         }
     ];
 }
@@ -92,5 +100,19 @@ fn encrypt_text_option(args: Vec<String>) {
 
     unsafe {
         println!("{}", benc::encrypt_string(text, password));
+    }
+}
+
+fn decrypt_text_option(args: Vec<String>) {
+    let text = args.join(" ");
+    
+    println!("Enter password: ");
+
+    let mut password = String::new();
+    io::stdin().read_line(&mut password).expect("Failed to read stdin");
+    password = password.remove(password.len() - 1).to_string();
+
+    unsafe {
+        println!("{}", benc::decrypt_string(text, password));
     }
 }
