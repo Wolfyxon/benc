@@ -60,7 +60,7 @@ fn input() -> String {
     let mut buf = String::new();
     io::stdin().read_line(&mut buf).expect("Failed to read stdin");
 
-    buf = buf.remove(buf.len() - 1).to_string(); // Remove last character (new line)
+    buf = buf.replace("\n", "");
 
     return buf;
 } 
