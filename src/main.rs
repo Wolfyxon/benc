@@ -1,7 +1,10 @@
 mod benc;
 
 use std::env;
+use std::fs::File;
 use std::io;
+use std::io::Read;
+use std::io::Write;
 
 struct Option<'a> {
     alias: &'a str,
@@ -89,6 +92,14 @@ fn get_options() -> Vec<Option<'static>> {
             minimum_args: 1,
             usage: "<encrypted text...>",
             callback: decrypt_text_option
+        },
+
+        Option {
+            alias: "encrypt_file",
+            description: "Encrypts a file",
+            minimum_args: 1,
+            usage: "<file path> [password]",
+            callback: encrypt_file_option
         }
     ];
 }
@@ -119,4 +130,45 @@ fn decrypt_text_option(args: Vec<String>) {
     unsafe {
         println!("{}", benc::decrypt_string(text, password));
     }
+}
+
+fn encrypt_file_option(args: Vec<String>) {
+    let path = &args[0];
+    let mut password = String::new();
+
+    let mut input_file = std::fs::OpenOptions::new()
+                        .read(true)
+                        .open(path)
+                        .expect(format!("Cannot open input {}", path).as_str());
+
+    println!("Encrypting file: '{}'", path);
+
+    if(args.len() > 1) {
+        password = args[1].clone();
+    } else {
+        println!("Enter password: ");
+        password = input();
+    }
+
+    let mut input_buff: Vec<u8> = Vec::new();
+    input_file.read_to_end(&mut input_buff).expect("Failed to read file");
+    assert!(input_buff.len() != 0, "Input buffer is 0 bytes");
+    
+    println!("Output buffer read, {} bytes", input_buff.len());
+
+    let mut output_file = std::fs::OpenOptions::new()
+                        .write(true)
+                        .truncate(true)
+                        .open(path)
+                        .expect(format!("Cannot open output {}", path).as_str());
+
+    let output_buff = benc::encrypt(input_buff, password.as_bytes().to_vec());
+    println!("Output buffer computed, {} bytes", output_buff.len());
+    assert!(output_buff.len() != 0, "Output buffer is 0 bytes");
+
+    println!("Writing to file");
+    output_file.write_all(&output_buff).expect("Failed to write buffer");
+
+    println!("File '{}' encrypted successfully", path);
+
 }
