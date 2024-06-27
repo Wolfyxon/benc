@@ -1,6 +1,17 @@
 # BENC - Basic Encryption
 Basic weak encryption algorithm I made because I was bored. 
 
+## Example CLI usages
+### Encrypting a message
+```
+benc encrypt_text Would be funny if you could read this  
+Enter password: jA93lkX82aR
+```
+### Decrypting a file
+```
+benc decrypt_file minecraft2.jar th3rsJu$t-no-W@Y
+``` 
+
 ## How it works?
 ### Encryption
 There are 2 sets of bytes. Input bytes and key bytes (message and password).
