@@ -16,7 +16,7 @@ benc.encrypt = function(data, key) {
         const byte = data[i];
         const keyByte = key[i % key.length];
 
-        res[i] = byte + keyByte;
+        res[i] = (byte + keyByte) & 0xFF;
     }
 
     return res;
@@ -35,7 +35,7 @@ benc.decrypt = function(encrypted, key) {
         const byte = encrypted[i];
         const keyByte = key[i % key.length];
 
-        res[i] = byte - keyByte;
+        res[i] = (byte - keyByte) & 0xFF;
     }
 
     return res;
