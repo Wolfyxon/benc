@@ -1,7 +1,7 @@
 # Dirs
 /.vscode
 /.idea
-/target
+/rust/target
 
 # Files
 *~
