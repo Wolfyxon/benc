@@ -6,3 +6,7 @@ label {
 #textarea {
     display: block;
 }
+
+.controls {
+    margin-top: 5px;
+}
