@@ -10,7 +10,7 @@ const benc = {};
  * @returns {Uint8Array}
  */
 benc.encrypt = function(data, key) {
-    const res = new Uint8Array(data,length);
+    const res = new Uint8Array(data.length);
 
     for(let i = 0; i < data.length; i++) {
         const byte = data[i];
