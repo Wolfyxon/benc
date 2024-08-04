@@ -8,6 +8,12 @@
 *~
 *.tmp
 
+# Compiled code
+*.exe
+*.d
+*.so
+*.dll
+
 # Commonly encrypted files
 *.txt
 *.mp4
