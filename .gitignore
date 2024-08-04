@@ -1,11 +1,14 @@
-# Dirs
+# -= Dirs =-
 /.vscode
 /.idea
 /rust/target
 
-# Files
+# -= Files =-
+# Temp
 *~
 *.tmp
+
+# Commonly encrypted files
 *.txt
 *.mp4
 *.mov
