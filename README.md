@@ -1,6 +1,8 @@
 # BENC - Basic Encryption
 Basic weak encryption algorithm I made because I was bored. 
 
+An [online demo](https://wolfyxon.github.io/benc/js/demo) is available, but currently raw text encryption/decryption is not supported. 
+
 ## Example CLI usages
 ### Encrypting a message
 ```
