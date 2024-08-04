@@ -13,6 +13,7 @@
 *.d
 *.so
 *.dll
+*.pyc
 
 # Commonly encrypted files
 *.txt
